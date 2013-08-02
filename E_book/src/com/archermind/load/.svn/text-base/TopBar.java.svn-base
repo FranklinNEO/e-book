@@ -1,0 +1,39 @@
+/**
+ * @Project:Archermindreader
+ * @ClassName:TopBar
+ * @Version 1.0
+ * @Author minmin.guo
+ * @Update shaojian.ni
+ * @Date:2012.4.19
+ * Copyright (C) 2012 The Android Open Source Project. 
+ */
+package com.archermind.load;
+
+import com.archermind.main.R;
+
+import android.content.Context;
+import android.util.AttributeSet;
+import android.view.LayoutInflater;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+public class TopBar extends RelativeLayout {
+	TextView mTitletext;
+
+	public TopBar(Context context) {
+		super(context);
+	}
+
+	public TopBar(Context context, AttributeSet attrs) {
+		super(context, attrs);
+		LayoutInflater inflater = (LayoutInflater) context
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		inflater.inflate(R.layout.topbar, this);
+		mTitletext = (TextView) findViewById(R.id.titletext);
+	}
+
+	public void setTitleText(String title) {
+		mTitletext.setText(title);
+	}
+
+}

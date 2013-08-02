@@ -1,0 +1,64 @@
+/**
+ * @Project:Archermindreader
+ * @ClassName:ReadOnlineBottomBar
+ * @Version 1.0
+ * @Author minmin.guo
+ * @Update shaojian.ni
+ * @Date:2012.4.19
+ * Copyright (C) 2012 The Android Open Source Project. 
+ */
+package com.archermind.load;
+
+import com.archermind.main.R;
+
+import android.content.Context;
+import android.util.AttributeSet;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
+import android.widget.RelativeLayout;
+
+public class ReadOnlineBottomBar extends RelativeLayout {
+	Button mPrepagebtn, mNextpagebtn, mContentbtn;
+	OnReadOnlineBottonBarListener mButtonListener;
+
+	public ReadOnlineBottomBar(Context context) {
+		super(context);
+	}
+
+	public ReadOnlineBottomBar(Context context, AttributeSet attrs) {
+		super(context, attrs);
+		LayoutInflater inflater = (LayoutInflater) context
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		inflater.inflate(R.layout.readonlinebottombar, this);
+		mPrepagebtn = (Button) findViewById(R.id.prepagebtn);
+		mNextpagebtn = (Button) findViewById(R.id.nextpagebtn);
+		mContentbtn = (Button) findViewById(R.id.contentbtn);
+	}
+
+	public void setOnReadOnlineBottonBarListener(
+			OnReadOnlineBottonBarListener buttonListener) {
+		this.mButtonListener = buttonListener;
+		mPrepagebtn.setOnClickListener(new BottomBarButtonOnClickListener());
+		mNextpagebtn.setOnClickListener(new BottomBarButtonOnClickListener());
+		mContentbtn.setOnClickListener(new BottomBarButtonOnClickListener());
+	}
+
+	class BottomBarButtonOnClickListener implements OnClickListener {
+
+		public void onClick(View v) {
+			switch (v.getId()) {
+			case R.id.prepagebtn:
+				mButtonListener.onClickPrepagebtn(ReadOnlineBottomBar.this);
+				break;
+			case R.id.nextpagebtn:
+				mButtonListener.onCLickNextpagebtn(ReadOnlineBottomBar.this);
+				break;
+			case R.id.contentbtn:
+				mButtonListener.onClickContentbtn(ReadOnlineBottomBar.this);
+				break;
+			}
+		}
+	}
+
+}

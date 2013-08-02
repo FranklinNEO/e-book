@@ -1,0 +1,111 @@
+/**
+ * @Project:Archermindreader
+ * @ClassName:ListViewItemAdapter
+ * @Version 1.0
+ * @Author minmin.guo
+ * @Update shaojian.ni
+ * @Date:2012.4.19
+ * Copyright (C) 2012 The Android Open Source Project. 
+ */
+package com.archermind.load;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import android.graphics.Bitmap;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
+
+import com.archermind.load.AsyncImageLoader.ImageCallback;
+import com.archermind.main.R;
+
+public class ListViewItemAdapter extends BaseAdapter implements Filterable {
+	ListViewItem mContext;
+	List<BookRank> mBooklist;
+	LayoutInflater mInflater;
+	OnAdapterItemLisenter mOnAdapterItemLisenter;
+	AsyncImageLoader mImageLoader = new AsyncImageLoader();
+	private Map<Integer, View> mViewMap = new HashMap<Integer, View>();
+
+	public ListViewItemAdapter() {
+		super();
+	}
+
+	public ListViewItemAdapter(ListViewItem context, List<BookRank> booklist,
+			OnAdapterItemLisenter onAdapterItemLisenter) {
+		this.mContext = context;
+		this.mBooklist = booklist;
+		this.mOnAdapterItemLisenter = onAdapterItemLisenter;
+		mInflater = LayoutInflater.from(context);
+	}
+
+	public int getCount() {
+		if (mBooklist != null) {
+			return mBooklist.size();
+		}
+		return 0;
+	}
+
+	public Object getItem(int position) {
+		return mBooklist.get(position);
+	}
+
+	public long getItemId(int position) {
+		return position;
+	}
+
+	public View getView(final int position, View convertView, ViewGroup parent) {
+		View rowview = this.mViewMap.get(position);
+		if (rowview == null) {
+			rowview = mInflater.inflate(R.layout.item, null);
+			final BookRank book = mBooklist.get(position);
+			final BookView bookview = (BookView) rowview
+					.findViewById(R.id.bookview);
+			bookview.setnametext(book.getname());
+			bookview.setauthortext(book.getauthor());
+			bookview.setranknumtext(book.getrankNum());
+			bookview.setclicknumtext(book.getclickNum());
+			bookview.setdownnumtext(book.getdownNum());
+			bookview.setimgviewBitmap(book.getbitmap());
+			if (book.getbitmap() == null) {
+				mImageLoader.loadBitmap(book.getimgUrl(), new ImageCallback() {
+					public void imageLoaded(String imageUrl, Bitmap bitmap) {
+						book.setbitmap(bitmap);
+						bookview.setimgviewBitmap(book.getbitmap());
+					}
+				});
+			}
+			bookview.setOnClickBookViewListener(new OnClickBookViewListener() {
+				public void onClickReadonlinebtn(View v) {
+
+					mOnAdapterItemLisenter.onAdapterClickReadbtn(position);
+				}
+
+				public void onClickDownloadbtn(View v) {
+					mOnAdapterItemLisenter.onAdapterClickDownbtn(position);
+				}
+			});
+			mViewMap.put(position, rowview);
+		}
+		return rowview;
+	}
+
+	public interface OnAdapterItemLisenter {
+
+		public void onAdapterClickReadbtn(int position);
+
+		public void onAdapterClickDownbtn(int position);
+	}
+
+	@Override
+	public Filter getFilter() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

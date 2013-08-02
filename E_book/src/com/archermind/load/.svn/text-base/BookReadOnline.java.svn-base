@@ -1,0 +1,239 @@
+/**
+ * @Project:Archermindreader
+ * @ClassName:BookReadOnline
+ * @Version 1.0
+ * @Author minmin.guo
+ * @Update shaojian.ni
+ * @Date:2012.4.19
+ * Copyright (C) 2012 The Android Open Source Project. 
+ */
+package com.archermind.load;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
+
+import com.archermind.load.AsyncContentLoader.OnAsyncContentLoaderListener;
+import com.archermind.load.AsyncTextLoader.OnAsyncTextLoaderListener;
+import com.archermind.load.ContentDialog.OnContentItemListener;
+import com.archermind.main.R;
+
+public class BookReadOnline extends Activity implements
+		OnReadOnlineBottonBarListener, OnReadOnlineTextBarListener {
+	ReadOnlineBottomBar mBottombar;
+	TextBar mTextbar;
+	TopBar mTopbar;
+
+	String mUrlstr;
+	String mContenturlstr;
+	boolean mPageexist;
+	int mPageid;
+	int mBarshowing;
+	BookHttpDownload mLoadNetString;
+	AsyncTextLoader mLoadText;
+	AsyncContentLoader mLoadContent;
+	ContentDialog mContentdialog;
+	ContentItemListener mContentItemListener;
+	final int TEXTLOADED = 1;
+	final int CONTENTLODED = 2;
+	List<BookContent> mContent;
+
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.readonline);
+		mBottombar = (ReadOnlineBottomBar) findViewById(R.id.readonlinebottombar);
+		mTextbar = (TextBar) findViewById(R.id.readonlinetextbar);
+		mTopbar = (TopBar) findViewById(R.id.readonlinetopbar);
+		mTextbar.setOnReadOnlineTextBarListener(this);
+		mBottombar.setOnReadOnlineBottonBarListener(this);
+		mLoadNetString = new BookHttpDownload();
+		Bundle bundle = this.getIntent().getExtras();
+		mUrlstr = bundle.getString(getString(R.string.url));
+		mPageid = bundle.getInt(getString(R.string.pageid));
+		mContenturlstr = bundle.getString(getString(R.string.contenturl));
+		mContent = new ArrayList<BookContent>();
+		mBarshowing = 1;
+		mLoadText = new AsyncTextLoader(new AsyncTextLoaderListener());
+		mLoadText.execute(mUrlstr);
+		mContentItemListener = new ContentItemListener();
+		mTopbar.setTitleText(getString(R.string.di) + mPageid
+				+ getString(R.string.zhang));
+	}
+
+	/**
+	 * response when prepagebtn clicked--->get pre paragraph
+	 */
+	public void onClickPrepagebtn(View v) {
+		String chapterdir = mUrlstr.substring(0, mUrlstr.lastIndexOf("/") + 1);
+		mPageid--;
+		mUrlstr = chapterdir + mPageid + ".txt";
+		if (mLoadNetString.getInputStream(mUrlstr) == null) {
+			mPageid++;
+			showToast(getString(R.string.toastone));
+		} else {
+			mLoadText = new AsyncTextLoader(new AsyncTextLoaderListener());
+			mLoadText.execute(mUrlstr);
+			mTopbar.setTitleText(getString(R.string.di) + mPageid
+					+ getString(R.string.zhang));
+		}
+
+	}
+
+	/**
+	 * response when nextpagebtn clicked
+	 */
+	public void onCLickNextpagebtn(View v) {
+		String chapterdir = mUrlstr.substring(0, mUrlstr.lastIndexOf("/") + 1);
+		mPageid++;
+		mUrlstr = chapterdir + mPageid + ".txt";
+		if (mLoadNetString.getInputStream(mUrlstr) == null) {
+			mPageid--;
+			showToast(getString(R.string.toasttwo));
+		} else {
+			mLoadText = new AsyncTextLoader(new AsyncTextLoaderListener());
+			mLoadText.execute(mUrlstr);
+			mTopbar.setTitleText(getString(R.string.di) + mPageid
+					+ getString(R.string.zhang));
+		}
+
+	}
+
+	/**
+	 * response when contenbtn clicked
+	 */
+	public void onClickContentbtn(View v) {
+		if (mContent.size() == 0) {
+			mLoadContent = new AsyncContentLoader(
+					new AsyncContentLoaderListener());
+			mLoadContent.execute(mContenturlstr);
+		} else {
+			showContentDialog(mContent);
+		}
+
+	}
+
+	/**
+	 * turn to Specified paragraph when content is clicked
+	 * 
+	 * @param pageid
+	 * @param urlstr
+	 */
+	public void turnToChapter(int pageid, String urlstr) {
+		this.mUrlstr = urlstr;
+		this.mPageid = pageid;
+		mLoadText = new AsyncTextLoader(new AsyncTextLoaderListener());
+		mLoadText.execute(urlstr);
+	}
+
+	public void showToast(String str) {
+		Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
+	}
+
+	// <---------------- textbar listener---------------->
+
+	public void onClickTextListener(View v) {
+		switch (mBarshowing) {
+		case 0:
+			showbar();
+			System.out.println(mBarshowing);
+			break;
+		case 1:
+			hidebar();
+			System.out.println(mBarshowing);
+			break;
+		}
+	}
+
+	public void showbar() {
+		mTopbar.setVisibility(View.VISIBLE);
+		mBottombar.setVisibility(View.VISIBLE);
+		mBarshowing = 1;
+	}
+
+	public void hidebar() {
+		mTopbar.setVisibility(View.GONE);
+		mBottombar.setVisibility(View.GONE);
+		mBarshowing = 0;
+	}
+
+	public void showContentDialog(List<BookContent> content) {
+		mContentdialog = new ContentDialog(this, content, mContentItemListener);
+		mContentdialog.show();
+	}
+
+	/**
+	 * the listener of Asynchronous download text
+	 * 
+	 * @author archermind
+	 * 
+	 */
+	class AsyncTextLoaderListener implements OnAsyncTextLoaderListener {
+		private ProgressDialog pdialog;
+
+		public void onPreLoader() {
+			pdialog = new ProgressDialog(BookReadOnline.this);
+			pdialog.setTitle(getString(R.string.titleone));
+			pdialog.show();
+		}
+
+		public void onOverLoader(String result) {
+			pdialog.cancel();
+			mTextbar.setBarText(result);
+		}
+
+		public void onProgressLoader() {
+
+		}
+
+	}
+
+	/**
+	 * the listener of Asynchronous download content
+	 * 
+	 * @author archermind
+	 * 
+	 */
+	class AsyncContentLoaderListener implements OnAsyncContentLoaderListener {
+		private ProgressDialog pdialog;
+
+		public void onPreLoader() {
+			pdialog = new ProgressDialog(BookReadOnline.this);
+			pdialog.setTitle(getString(R.string.titletwo));
+			pdialog.show();
+		}
+
+		public void onOverLoader(List<BookContent> content) {
+			pdialog.cancel();
+			BookReadOnline.this.mContent = content;
+			showContentDialog(content);
+		}
+
+		@Override
+		public void onProgressLoader() {
+
+		}
+
+	}
+
+	/**
+	 * the listener when content is clicked
+	 * 
+	 * @author archermind
+	 * 
+	 */
+	class ContentItemListener implements OnContentItemListener {
+		public void onContentItemClickListener(int position) {
+			String urlstr = mContent.get(position).getChapterUrl();
+			turnToChapter(position + 1, urlstr);
+			mTopbar.setTitleText(getString(R.string.di) + mPageid
+					+ getString(R.string.zhang));
+			mContentdialog.dismiss();
+		}
+	}
+
+}

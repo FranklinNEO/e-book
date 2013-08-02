@@ -1,0 +1,159 @@
+/**
+ * @Project:Archermindreader
+ * @ClassName:ListViewItem
+ * @Version 1.0
+ * @Author minmin.guo
+ * @Update shaojian.ni
+ * @Date:2012.4.19
+ * Copyright (C) 2012 The Android Open Source Project. 
+ */
+package com.archermind.load;
+
+import java.util.List;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.ListView;
+
+import com.archermind.download.DownloadMain;
+import com.archermind.load.ListViewItemAdapter.OnAdapterItemLisenter;
+import com.archermind.main.R;
+
+public class ListViewItem extends Activity {
+
+	ListView mListview;
+	final int DONE = 1;
+	BookHttpDownload mUrldownload;
+	XMLPullParser mXmlpullparser;
+	List<BookRank> mBooklist;
+	ListViewItemAdapter mAdapter;
+	AdapterItemLisenter mAdapterItemLisenter;
+	protected final static int MENU_REFRESH = Menu.FIRST;
+	protected final static int MENU_DOWNLOAD = Menu.FIRST + 1;
+	String mUrlstr = "http://10.0.2.2:8080/downloadfile/bookrank/rank.xml";
+	final int REFRESHLIST = 1;
+	final int SHOWIMAGE = 2;
+	private LoadRankThread mLoadRankThread;
+
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.readonlinemain);
+		mListview = (ListView) findViewById(R.id.listview);
+		mXmlpullparser = new XMLPullParser(ListViewItem.this);
+		mUrldownload = new BookHttpDownload();
+		mAdapterItemLisenter = new AdapterItemLisenter();
+
+	}
+
+	/**
+	 * create menu
+	 */
+	public boolean onCreateOptionsMenu(Menu menu) {
+		super.onCreateOptionsMenu(menu);
+		menu.add(Menu.NONE, MENU_REFRESH, 1, getString(R.string.textone));
+		return true;
+	}
+
+	/**
+	 * response of menu event
+	 */
+	public boolean onOptionsItemSelected(MenuItem item) {
+		super.onOptionsItemSelected(item);
+		switch (item.getItemId()) {
+		case MENU_REFRESH:
+			mLoadRankThread = new LoadRankThread();
+			mLoadRankThread.start();
+			break;
+		}
+		return true;
+
+	}
+
+	/**
+	 * recieve message to hanle
+	 */
+	Handler handler = new Handler() {
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+			case REFRESHLIST:
+				refreshListView(mBooklist);
+				break;
+			case SHOWIMAGE:
+				break;
+
+			}
+		}
+	};
+
+	public void refreshListView(List<BookRank> booklist) {
+		mAdapter = new ListViewItemAdapter(ListViewItem.this, booklist,
+				mAdapterItemLisenter);
+		mListview.setAdapter(mAdapter);
+		mListview.setTextFilterEnabled(true);
+	}
+
+	/**
+	 * response of btn
+	 * 
+	 * @author archermind
+	 * 
+	 */
+	class AdapterItemLisenter implements OnAdapterItemLisenter {
+
+		public void onAdapterClickReadbtn(int position) {
+			turntoreadonline(position);
+		}
+
+		public void onAdapterClickDownbtn(int position) {
+			turntodownload();
+		}
+	}
+
+	/**
+	 * get ranknum
+	 * 
+	 * @author archermind
+	 * 
+	 */
+	class LoadRankThread extends Thread {
+		public void run() {
+			mBooklist = mXmlpullparser.getNetStrBookList(mUrlstr);
+			handler.sendEmptyMessage(REFRESHLIST);
+		}
+	}
+
+	/**
+	 * turn to download activity
+	 */
+	public void turntodownload() {
+		Intent intent = new Intent();
+		intent.setClass(ListViewItem.this, DownloadMain.class);
+		startActivity(intent);
+	}
+
+	/**
+	 * turn to readonline
+	 * 
+	 * @param position
+	 */
+	public void turntoreadonline(int position) {
+		int pageid = 1;
+		Intent intent = new Intent();
+		Bundle bundle = new Bundle();
+		String urlstr = mBooklist.get(position).getreadOnlineUrl();
+		String contenturlstr = mBooklist.get(position).getcontentUrl();
+		bundle.putString(getString(R.string.contenturl), contenturlstr);
+		bundle.putString(getString(R.string.url), urlstr);
+		bundle.putInt(getString(R.string.pageid), pageid);
+		intent.putExtras(bundle);
+		intent.setClass(ListViewItem.this, BookReadOnline.class);
+		startActivity(intent);
+
+	}
+
+}

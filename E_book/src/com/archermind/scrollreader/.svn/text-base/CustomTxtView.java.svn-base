@@ -1,0 +1,110 @@
+/**
+ * @Project:Archermindreader
+ * @ClassName:CustomTxtView
+ * @Version 1.0
+ * @Author shaojian.ni,xuegang.fu,xue.xia
+ * @Update minmin.guo
+ * @Date:2012.4.19
+ * Copyright (C) 2012 The Android Open Source Project. 
+ */
+//implement text selection
+
+package com.archermind.scrollreader;
+
+import com.archermind.main.R;
+
+import android.content.Context;   
+import android.text.Layout;   
+import android.text.Selection;   
+import android.util.AttributeSet;
+import android.view.ContextMenu;   
+import android.view.MenuItem;
+import android.view.MotionEvent;   
+import android.widget.EditText;   
+  
+public class CustomTxtView extends EditText {   
+
+	private final static int C_MENU_BEGIN_SELECTION = 0;
+    boolean mBIsBeginSelecting = false;
+    int mLine = 0;	// line of cursor 
+    int mOff = 0;	// list of cursor
+    
+    private class MenuHandler implements MenuItem.OnMenuItemClickListener {
+        public boolean onMenuItemClick(MenuItem item) {
+            return onContextMenuItem(item.getItemId());
+        }
+    }
+    
+    public boolean onContextMenuItem(int id) {
+    	switch (id) {
+    	case C_MENU_BEGIN_SELECTION:
+    		mBIsBeginSelecting = true;
+    		setCursorVisible(true);
+    		return true;
+    	}
+    	
+		return false;
+    }
+    
+    public CustomTxtView(Context context, AttributeSet attrs) {
+        super(context, attrs); 
+    }
+    
+    public CustomTxtView(Context context) {   
+        super(context);   
+    }    
+       
+    //  show pop-up screen context menu when long press screen
+    @Override  
+    protected void onCreateContextMenu(ContextMenu menu) {   
+    		MenuHandler handler = new MenuHandler();
+    		menu.add(0, C_MENU_BEGIN_SELECTION, 0, R.string.textmodechoice).
+            setOnMenuItemClickListener(handler);
+    }   
+       
+    @Override  
+    public boolean getDefaultEditable() {   
+        return false;   
+    }   
+       
+    @Override  
+    public boolean onTouchEvent(MotionEvent event) {  
+    	if (mBIsBeginSelecting) {
+    		// specially treat in text selection mode 
+            int action = event.getAction();   
+            Layout layout = getLayout();   
+
+            switch(action) {   
+            case MotionEvent.ACTION_DOWN:   
+                mLine = layout.getLineForVertical(getScrollY()+ (int)event.getY());           
+                mOff = layout.getOffsetForHorizontal(mLine, (int)event.getX());   
+                Selection.setSelection(getEditableText(), mOff);   
+                break;   
+            case MotionEvent.ACTION_MOVE:   
+            case MotionEvent.ACTION_UP:   
+                mLine = layout.getLineForVertical(getScrollY()+(int)event.getY());    
+                int curOff = layout.getOffsetForHorizontal(mLine, (int)event.getX());
+                if (curOff > mOff){
+                	Selection.setSelection(getEditableText(), mOff, curOff);}
+                else{
+                	Selection.setSelection(getEditableText(), curOff, mOff);
+            }   }
+            return true;  
+    	} 
+    	else{
+    		super.onTouchEvent(event);
+    		return true;
+    	}
+    }   
+    
+    // clear the selection
+    public void clearSelection() {
+    	Selection.removeSelection(getEditableText());
+		mBIsBeginSelecting = false;
+		setCursorVisible(false);
+    }
+    
+    public boolean isInSelectMode() {
+    	return mBIsBeginSelecting;
+    }
+}  

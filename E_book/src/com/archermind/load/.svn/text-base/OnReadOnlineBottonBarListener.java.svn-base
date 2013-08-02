@@ -1,0 +1,19 @@
+/**
+ * @Project:Archermindreader
+ * @ClassName:OnReadOnlineBottonBarListener
+ * @Version 1.0
+ * @Author minmin.guo
+ * @Update shaojian.ni
+ * @Date:2012.4.19
+ * Copyright (C) 2012 The Android Open Source Project. 
+ */
+package com.archermind.load;
+
+import android.view.View;
+
+public interface OnReadOnlineBottonBarListener {
+	public void onClickPrepagebtn(View v);
+	public void onCLickNextpagebtn(View v);
+	public void onClickContentbtn(View v);
+
+}

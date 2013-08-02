@@ -1,0 +1,67 @@
+/**
+ * @Project:Archermindreader
+ * @ClassName:AsyncTextLoader
+ * @Version 1.0
+ * @Author minmin.guo
+ * @Update shaojian.ni
+ * @Date:2012.4.19
+ * Copyright (C) 2012 The Android Open Source Project. 
+ */
+package com.archermind.load;
+
+import android.os.AsyncTask;
+
+/**
+ * Asynchronous load text
+ * 
+ * @author archermind
+ * 
+ */
+public class AsyncTextLoader extends AsyncTask<String, Void, String> {
+
+	private BookHttpDownload mLoadNetString;
+	private OnAsyncTextLoaderListener mAsyncTextLoaderListener;
+
+	public AsyncTextLoader(OnAsyncTextLoaderListener asyncTextLoaderListener) {
+		this.mAsyncTextLoaderListener = asyncTextLoaderListener;
+	}
+
+	@Override
+	protected void onPreExecute() {
+		super.onPreExecute();
+		mAsyncTextLoaderListener.onPreLoader();
+	}
+
+	@Override
+	protected String doInBackground(String... params) {
+		String text = null;
+		mLoadNetString = new BookHttpDownload();
+		try {
+			text = mLoadNetString.getUrlString(params[0]);
+		} catch (Exception e) {
+			return null;
+		}
+
+		return text;
+	}
+
+	@Override
+	protected void onPostExecute(String result) {
+		mAsyncTextLoaderListener.onOverLoader(result);
+		super.onPostExecute(result);
+	}
+
+	@Override
+	protected void onProgressUpdate(Void... values) {
+		super.onProgressUpdate(values);
+	}
+
+	public interface OnAsyncTextLoaderListener {
+
+		public void onPreLoader();
+
+		public void onOverLoader(String result);
+
+		public void onProgressLoader();
+	}
+}

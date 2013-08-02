@@ -1,0 +1,71 @@
+/**
+ * @Project:Archermindreader
+ * @ClassName:XMLPullParser
+ * @Version 1.0
+ * @Author minmin.guo
+ * @Update shaojian.ni
+ * @Date:2012.4.19
+ * Copyright (C) 2012 The Android Open Source Project. 
+ */
+package com.archermind.load;
+
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.util.List;
+import android.content.Context;
+
+/**
+ * pull resolve ------->turn the resolved object to inputstream
+ * 
+ * @author archermind
+ * 
+ */
+public class XMLPullParser {
+	Context mContext;
+
+	public XMLPullParser(Context context) {
+		this.mContext = context;
+	}
+
+	/**
+	 * resolve string,return list<bookrank>
+	 * 
+	 * @param string
+	 * @return
+	 */
+	public List<BookRank> getStringBookList(String string) {
+		List<BookRank> booklist = null;
+		InputStream inputstream = null;
+		byte[] mBytes= string.getBytes();
+		inputstream = new ByteArrayInputStream(mBytes);
+		try {
+			booklist = PullService.getBookList(inputstream);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return booklist;
+	}
+
+	/**
+	 * reslove net xml,return list<bookrank>
+	 * 
+	 * @param urlstr
+	 * @return
+	 */
+	public List<BookRank> getNetStrBookList(String urlstr) {
+		List<BookRank> booklist = null;
+		String string = null;
+		BookHttpDownload httpload = new BookHttpDownload();
+		try {
+			string = httpload.getUrlString(urlstr);
+		} catch (Exception e2) {
+			e2.printStackTrace();
+		}
+		try {
+			booklist = getStringBookList(string);
+		} catch (Exception e3) {
+			e3.printStackTrace();
+		}
+		return booklist;
+	}
+}

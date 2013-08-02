@@ -1,0 +1,137 @@
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/1517/group1/projectCode/ArchermindReader/src/com/archermind/load
+END
+AsyncContentLoader.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/!svn/ver/1232/group1/projectCode/ArchermindReader/src/com/archermind/load/AsyncContentLoader.java
+END
+BookRank.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/!svn/ver/1232/group1/projectCode/ArchermindReader/src/com/archermind/load/BookRank.java
+END
+AsyncImageLoader.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/!svn/ver/1232/group1/projectCode/ArchermindReader/src/com/archermind/load/AsyncImageLoader.java
+END
+BookPageStyle.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/!svn/ver/1232/group1/projectCode/ArchermindReader/src/com/archermind/load/BookPageStyle.java
+END
+AsyncTextLoader.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/!svn/ver/1232/group1/projectCode/ArchermindReader/src/com/archermind/load/AsyncTextLoader.java
+END
+TextBar.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/!svn/ver/1232/group1/projectCode/ArchermindReader/src/com/archermind/load/TextBar.java
+END
+XMLPullParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/!svn/ver/1231/group1/projectCode/ArchermindReader/src/com/archermind/load/XMLPullParser.java
+END
+OnReadOnlineTextBarListener.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/!svn/ver/1232/group1/projectCode/ArchermindReader/src/com/archermind/load/OnReadOnlineTextBarListener.java
+END
+ListAllFileActivity.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/!svn/ver/1517/group1/projectCode/ArchermindReader/src/com/archermind/load/ListAllFileActivity.java
+END
+BookHttpDownload.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/!svn/ver/1232/group1/projectCode/ArchermindReader/src/com/archermind/load/BookHttpDownload.java
+END
+ListViewItem.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/!svn/ver/1511/group1/projectCode/ArchermindReader/src/com/archermind/load/ListViewItem.java
+END
+BookView.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/!svn/ver/1628/group1/projectCode/ArchermindReader/src/com/archermind/load/BookView.java
+END
+BookContent.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/!svn/ver/1232/group1/projectCode/ArchermindReader/src/com/archermind/load/BookContent.java
+END
+ListViewItemAdapter.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/!svn/ver/1510/group1/projectCode/ArchermindReader/src/com/archermind/load/ListViewItemAdapter.java
+END
+TopBar.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/!svn/ver/1232/group1/projectCode/ArchermindReader/src/com/archermind/load/TopBar.java
+END
+PullServiceLoadContent.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/!svn/ver/1232/group1/projectCode/ArchermindReader/src/com/archermind/load/PullServiceLoadContent.java
+END
+ContentDialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/!svn/ver/1232/group1/projectCode/ArchermindReader/src/com/archermind/load/ContentDialog.java
+END
+ReadOnlineBottomBar.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/!svn/ver/1232/group1/projectCode/ArchermindReader/src/com/archermind/load/ReadOnlineBottomBar.java
+END
+BookReadOnline.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/!svn/ver/1232/group1/projectCode/ArchermindReader/src/com/archermind/load/BookReadOnline.java
+END
+PullService.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/!svn/ver/1232/group1/projectCode/ArchermindReader/src/com/archermind/load/PullService.java
+END
+OnReadOnlineBottonBarListener.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/!svn/ver/1232/group1/projectCode/ArchermindReader/src/com/archermind/load/OnReadOnlineBottonBarListener.java
+END
+OnClickBookViewListener.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/!svn/ver/1232/group1/projectCode/ArchermindReader/src/com/archermind/load/OnClickBookViewListener.java
+END

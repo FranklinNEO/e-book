@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="titleheightsize">72.0dip</dimen>
+    <dimen name="XLargeTextSize">20.0dip</dimen>
+    <dimen name="LargerTextSize">17.0dip</dimen>
+    <dimen name="LargeTextSize">16.0dip</dimen>
+    <dimen name="BasicTextSize">15.0dip</dimen>
+    <dimen name="TitleTextSize">18.0dip</dimen>
+    <dimen name="SmallTextSize">14.0dip</dimen>
+    <dimen name="SmallerTextSize">13.0dip</dimen>
+    <dimen name="SmallestTextSize">12.0dip</dimen>
+    <dimen name="LargestTextSize">30.0dip</dimen>
+    <dimen name="ChattingTextSize">16.0dip</dimen>
+    <dimen name="ChattingContentMinHeight">49.0dip</dimen>
+    <dimen name="PreferenceItemHeight">42.0dip</dimen>
+    <dimen name="ConversationItemHeight">54.0dip</dimen>
+    <dimen name="LargeAvatarSize">52.0dip</dimen>
+    <dimen name="MMTwinButtonMinSize">50.0dip</dimen>
+    <dimen name="Large_TextSize">30.0dip</dimen>
+    <dimen name="Big_TextSize">23.0dip</dimen>
+    <dimen name="Medium_TextSize">20.0dip</dimen>
+    <dimen name="Small_TextSize">15.0dip</dimen>
+    <dimen name="Tiny_TextSize">10.0dip</dimen>
+    <dimen name="qq_sync_intro_text_top_margin">2.0dip</dimen>
+    <dimen name="qq_sync_intro_text_spacing">0.0dip</dimen>
+    <dimen name="button_height">45.0dip</dimen>
+    <dimen name="bottom_tab_font_size">10.0dip</dimen>
+    <dimen name="bottom_tab_padding_up">5.0dip</dimen>
+    <dimen name="bottom_tab_padding_drawable">2.0dip</dimen>
+    <dimen name="switch_logo_bottom_padding">30.0sp</dimen>
+    <dimen name="widget_height">100.0dip</dimen>
+    <dimen name="sta_height">48.0dip</dimen>
+    <dimen name="widget_write_margin_top">19.0dip</dimen>
+    <dimen name="widget_write_margin_left">10.0dip</dimen>
+    <dimen name="widget_content_margin_top">20.0dip</dimen>
+    <dimen name="widget_content_margin_left">10.0dip</dimen>
+    <dimen name="widget_logo_size">35.0dip</dimen>
+    <dimen name="title_height">74.0dip</dimen>
+    <dimen name="new_blog_size">70.0dip</dimen>
+    <dimen name="emotion_item_view_height">13.299988dip</dimen>
+    <dimen name="splash_test_top_margin_top">20.0dip</dimen>
+    <dimen name="splash_test_center_margin_right">0.0dip</dimen>
+
+</resources>

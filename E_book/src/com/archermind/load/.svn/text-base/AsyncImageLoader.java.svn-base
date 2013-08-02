@@ -1,0 +1,45 @@
+/**
+ * @Project:Archermindreader
+ * @ClassName:AsyncImageLoader
+ * @Version 1.0
+ * @Author minmin.guo
+ * @Update shaojian.ni
+ * @Date:2012.4.19
+ * Copyright (C) 2012 The Android Open Source Project. 
+ */
+package com.archermind.load;
+
+import android.graphics.Bitmap;
+import android.os.Handler;
+import android.os.Message;
+
+/**
+ * Asynchronous load image
+ * 
+ * @author archermind
+ * 
+ */
+public class AsyncImageLoader {
+	private BookHttpDownload mHttpdownload = new BookHttpDownload();
+
+	public Bitmap loadBitmap(final String imageUrl, final ImageCallback callback) {
+
+		final Handler mHandler = new Handler() {
+			public void handleMessage(Message msg) {
+				callback.imageLoaded(imageUrl, (Bitmap) msg.obj);
+			}
+		};
+		new Thread() {
+			public void run() {
+				Bitmap bitmap = mHttpdownload.loadbitmap(imageUrl);
+				mHandler.sendMessage(mHandler.obtainMessage(0, bitmap));
+
+			};
+		}.start();
+		return null;
+	}
+
+	public interface ImageCallback {
+		public void imageLoaded(String imageUrl, Bitmap bitmap);
+	}
+}

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <com.archermind.load.TextBar
+        android:id="@+id/readonlinetextbar"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
+
+    <com.archermind.load.TopBar
+        android:id="@+id/readonlinetopbar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true" />
+
+    <com.archermind.load.ReadOnlineBottomBar
+        android:id="@+id/readonlinebottombar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" />
+
+</RelativeLayout>

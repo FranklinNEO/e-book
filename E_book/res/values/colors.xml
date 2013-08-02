@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="white">#FFFFFFFF</color>
+    <color name="black">#FF000000</color>
+    <color name="bgcolor">#FF423029</color>
+    <color name="bgcoloralp">#52423029</color>
+     <color name="alp0">#00000000</color>
+    <color name="buttonalp0">#00000000</color>
+    <color name="nightbgcolor">#FF07080b</color>
+    <color name="nighttxtcolor">#FF122779</color>
+    <color name="daybgcolor">#FFFFFFFF</color>
+    <color name="daytxtcolor">#FF000000</color>
+    <color name="graycolor"> #999A9BFE</color>
+    <color name="gray"> #FF9A9BFE</color>
+    <color name="darkgraycolor"> #FF9A9BFE</color>
+      <color name="redcolor"> #FFfc041b</color>
+     <color name="darkcolor"> #FFebeffd</color>
+</resources>

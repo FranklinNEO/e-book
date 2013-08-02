@@ -1,0 +1,45 @@
+/**
+ * @Project:Archermindreader
+ * @ClassName:BookContent
+ * @Version 1.0
+ * @Author minmin.guo
+ * @Update shaojian.ni
+ * @Date:2012.4.19
+ * Copyright (C) 2012 The Android Open Source Project. 
+ */
+package com.archermind.load;
+
+public class BookContent {
+	int mChapterid;
+	String mChaptername;
+	String mChapterurl;
+	public BookContent(){
+		super();
+	}
+    public BookContent(int chapterid,String chaptername,String chapterurl){
+    	this.mChaptername=chaptername;
+    	this.mChapterid=chapterid;
+    	this.mChapterurl=chapterurl;
+    }
+    public void setChapterId(int chapterid){
+    	this.mChapterid=chapterid;
+    }
+    public void setChapterName(String chaptername){
+    	this.mChaptername=chaptername;
+    }
+    public void setChapterUrl(String chapterurl){
+    	this.mChapterurl=chapterurl;
+    }
+    public int getChapterId(){
+    	return mChapterid;
+    }
+    public String getChapterName(){
+    	return mChaptername;
+    }
+
+    public String getChapterUrl(){
+    	return mChapterurl;
+    }
+    
+}
+

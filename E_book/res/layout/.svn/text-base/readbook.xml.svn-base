@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 主阅读界面的Layout -->
+
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <com.archermind.scrollreader.CustomTxtView
+        android:id="@+id/viewtxt_main_view"
+        android:layout_width="294dp"
+        android:layout_height="407dp"
+        android:layout_x="10dp"
+        android:layout_y="32dp"
+        android:background="#00000000"
+        android:scrollbars="vertical"
+        android:singleLine="false" />
+
+    <Button
+        android:id="@+id/viewtxt_next_button"
+        android:layout_width="40dp"
+        android:layout_height="35dp"
+        android:layout_x="260dp"
+        android:layout_y="445dp"
+        android:background="@drawable/forward" />
+
+    <Button
+        android:id="@+id/viewtxt_pre_button"
+        android:layout_width="40dp"
+        android:layout_height="35dp"
+        android:layout_x="20dp"
+        android:layout_y="445dp"
+        android:background="@drawable/back" />
+
+    <ImageButton
+        android:id="@+id/fontsize_big"
+        android:layout_width="40dp"
+        android:layout_height="35dp"
+        android:layout_x="205dp"
+        android:layout_y="445dp"
+        android:background="#00000000"
+        android:src="@drawable/add" />
+
+    <ImageButton
+        android:id="@+id/fontsize_small"
+        android:layout_width="40dp"
+        android:layout_height="35dp"
+        android:layout_x="80dp"
+        android:layout_y="445dp"
+        android:background="#00000000"
+        android:src="@drawable/minuse" />
+
+    <Button
+        android:id="@+id/viewtxt_auto_scroll_button"
+        android:layout_width="40dp"
+        android:layout_height="35dp"
+        android:layout_x="145dp"
+        android:layout_y="445dp"
+        android:background="@drawable/scroll" />
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="5dp"
+        android:layout_y="10dp"
+        android:text="TextView"
+        android:textColor="#000000" />
+
+    <TextView
+        android:id="@+id/percent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="258dp"
+        android:layout_y="10dp"
+        android:text="TextView"
+        android:textColor="#000000" />
+
+</AbsoluteLayout>

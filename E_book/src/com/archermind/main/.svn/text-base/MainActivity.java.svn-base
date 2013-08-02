@@ -1,0 +1,123 @@
+/**
+ * @Project:Archermindreader
+ * @ClassName:MainActivity
+ * @Version 1.0
+ * @Author shaojian.ni xue.xia
+ * @Update xuegang.fu
+ * @Date:2012.4.19
+ * Copyright (C) 2012 The Android Open Source Project. 
+ */
+package com.archermind.main;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.StateListDrawable;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.ImageButton;
+import android.widget.Toast;
+
+import com.archermind.load.ListAllFileActivity;
+import com.archermind.load.ListViewItem;
+
+public class MainActivity extends Activity {
+
+	/**
+	 * set the main UI
+	 */
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.main);
+		ImageButton mButton1;
+		ImageButton mButton2;
+		ImageButton mButton3;
+		ImageButton mButton4;
+		mButton1 = (ImageButton) findViewById(R.id.local);
+		mButton2 = (ImageButton) findViewById(R.id.online);
+		mButton3 = (ImageButton) findViewById(R.id.about);
+		mButton4 = (ImageButton) findViewById(R.id.exit);
+
+		Integer[] mButtonStates = { R.drawable.local, R.drawable.local,
+				R.drawable.localdown };
+		MyButton mButton = new MyButton(this);
+		mButton1.setBackgroundDrawable(mButton.setbg(mButtonStates));
+		mButton1.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent in = new Intent();
+				in.setClass(MainActivity.this, ListAllFileActivity.class);
+				MainActivity.this.startActivity(in);
+
+			}
+		});
+		mButton2.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent intent2 = new Intent(MainActivity.this,
+						ListViewItem.class);
+				startActivityForResult(intent2, 11);
+				int version = Integer.valueOf(android.os.Build.VERSION.SDK);
+				if (version >= 5) {
+					overridePendingTransition(R.anim.a1, R.anim.a2);
+				}
+			}
+		});
+		mButton3.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Toast.makeText(MainActivity.this, getString(R.string.aboutmen),
+						Toast.LENGTH_LONG).show();
+			}
+		});
+
+		mButton4.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				finish();
+			}
+		});
+
+	}
+
+	/**
+	 * set the button
+	 * 
+	 * @author archermind
+	 * 
+	 */
+	class MyButton extends View {
+
+		public MyButton(Context context) {
+			super(context);
+		}
+
+		/**
+		 * send the array of the images, and change the special efficiency of
+		 * the button with the method StateListDrawable
+		 * 
+		 * @param mImageIds
+		 * @return
+		 */
+		public StateListDrawable setbg(Integer[] mImageIds) {
+			StateListDrawable bg = new StateListDrawable();
+			Drawable normal = this.getResources().getDrawable(mImageIds[0]);
+			Drawable selected = this.getResources().getDrawable(mImageIds[1]);
+			Drawable pressed = this.getResources().getDrawable(mImageIds[2]);
+			bg.addState(View.PRESSED_ENABLED_STATE_SET, pressed);
+			bg.addState(View.ENABLED_FOCUSED_STATE_SET, selected);
+			bg.addState(View.ENABLED_STATE_SET, normal);
+			bg.addState(View.FOCUSED_STATE_SET, selected);
+			bg.addState(View.EMPTY_STATE_SET, normal);
+			return bg;
+		}
+	}
+
+}

@@ -1,0 +1,65 @@
+/**
+ * @Project:Archermindreader
+ * @ClassName:AsyncContentLoader
+ * @Version 1.0
+ * @Author minmin.guo
+ * @Update shaojian.ni
+ * @Date:2012.4.19
+ * Copyright (C) 2012 The Android Open Source Project. 
+ */
+package com.archermind.load;
+
+import java.util.List;
+import android.os.AsyncTask;
+
+/**
+ * Asynchronous load content
+ * 
+ * @author archermind
+ * 
+ */
+public class AsyncContentLoader extends
+		AsyncTask<String, Void, List<BookContent>> {
+
+	private OnAsyncContentLoaderListener mAsyncContentLoaderListener;
+
+	public AsyncContentLoader(
+			OnAsyncContentLoaderListener asyncContentLoaderListener) {
+		this.mAsyncContentLoaderListener = asyncContentLoaderListener;
+	}
+
+	@Override
+	protected void onPreExecute() {
+		super.onPreExecute();
+		mAsyncContentLoaderListener.onPreLoader();
+	}
+
+	@Override
+	protected List<BookContent> doInBackground(String... params) {
+		List<BookContent> content;
+		PullServiceLoadContent pullloadcontent;
+		pullloadcontent = new PullServiceLoadContent();
+		content = pullloadcontent.getBookContent(params[0]);
+		return content;
+	}
+
+	@Override
+	protected void onPostExecute(List<BookContent> result) {
+		super.onPostExecute(result);
+		mAsyncContentLoaderListener.onOverLoader(result);
+	}
+
+	@Override
+	protected void onProgressUpdate(Void... values) {
+		super.onProgressUpdate(values);
+	}
+
+	public interface OnAsyncContentLoaderListener {
+
+		public void onPreLoader();
+
+		public void onOverLoader(List<BookContent> result);
+
+		public void onProgressLoader();
+	}
+}

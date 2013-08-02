@@ -1,0 +1,79 @@
+/**
+ * @Project:Archermindreader
+ * @ClassName:ContentDialog
+ * @Version 1.0
+ * @Author minmin.guo
+ * @Update shaojian.ni
+ * @Date:2012.4.19
+ * Copyright (C) 2012 The Android Open Source Project. 
+ */
+package com.archermind.load;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.archermind.main.R;
+
+import android.app.Dialog;
+import android.content.Context;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
+
+public class ContentDialog extends Dialog implements OnClickListener {
+	List<BookContent> mContent;
+	List<String> mList;
+	BookReadOnline mBookReadOnLine;
+	ListView mListview;
+	Button mBackbtn;
+	OnContentItemListener mOnContentItemListener;
+
+	public ContentDialog(Context context) {
+		super(context);
+	}
+
+	public ContentDialog(BookReadOnline bookReadOnLine,
+			List<BookContent> content,
+			OnContentItemListener onContentItemListener) {
+		super(bookReadOnLine);
+		this.mContent = content;
+		this.mBookReadOnLine = bookReadOnLine;
+		this.mOnContentItemListener = onContentItemListener;
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		setContentView(R.layout.contentdialog);
+		mListview = (ListView) findViewById(R.id.contentlistview);
+		mBackbtn = (Button) findViewById(R.id.contentbackbtn);
+
+		mBackbtn.setOnClickListener(this);
+		mListview.setOnItemClickListener(new contentItemOnClickListener());
+		mList = new ArrayList<String>();
+
+		for (int i = 0; i < content.size(); i++) {
+			mList.add(content.get(i).getChapterName());
+		}
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(bookReadOnLine,
+				android.R.layout.simple_list_item_1, mList);
+		mListview.setAdapter(adapter);
+
+	}
+
+	class contentItemOnClickListener implements OnItemClickListener {
+		public void onItemClick(AdapterView<?> arg0, View v, int position,
+				long id) {
+			mOnContentItemListener.onContentItemClickListener(position);
+		}
+	}
+
+	public void onClick(View v) {
+		ContentDialog.this.dismiss();
+	}
+
+	public interface OnContentItemListener {
+		public void onContentItemClickListener(int position);
+	}
+}

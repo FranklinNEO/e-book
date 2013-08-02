@@ -1,0 +1,213 @@
+/**
+ * @Project:Archermindreader
+ * @ClassName:BookRank
+ * @Version 1.0
+ * @Author minmin.guo
+ * @Update shaojian.ni
+ * @Date:2012.4.19
+ * Copyright (C) 2012 The Android Open Source Project. 
+ */
+package com.archermind.load;
+
+import android.graphics.Bitmap;
+
+public class BookRank {
+
+	int mRankNum;
+	String mName;
+	String mAuthor;
+	int mClickNum;
+	int mDownNum;
+	String mImgUrl;
+	String mDownLoadUrl;
+	String mReadOnlineUrl;
+	String mContentUrl;
+	Bitmap mBitmap;
+
+	public BookRank() {
+		super();
+	}
+
+	public BookRank(int rankNum, String name, Bitmap bitmap, String author,
+			int clickNum, int downNum, String imgUrl, String downLoadUrl,
+			String readOnlineUrl, String contentUrl) {
+		this.mAuthor = author;
+		this.mClickNum = clickNum;
+		this.mDownLoadUrl = downLoadUrl;
+		this.mDownNum = downNum;
+		this.mName = name;
+		this.mReadOnlineUrl = readOnlineUrl;
+		this.mImgUrl = imgUrl;
+		this.mRankNum = rankNum;
+		this.mBitmap = bitmap;
+		this.mContentUrl = contentUrl;
+	}
+
+	public String getcontentUrl() {
+		return mContentUrl;
+	}
+
+	/**
+	 * get author
+	 * 
+	 * @return
+	 */
+	public String getauthor() {
+		return mAuthor;
+	}
+
+	/**
+	 * get clicked number
+	 * 
+	 * @return
+	 */
+	public int getclickNum() {
+		return mClickNum;
+	}
+
+	/**
+	 * get downloadurl
+	 * 
+	 * @return
+	 */
+	public String getdownLoadUrl() {
+		return mDownLoadUrl;
+	}
+
+	/**
+	 * get download num
+	 * */
+	public int getdownNum() {
+		return mDownNum;
+	}
+
+	/**
+	 * get book name
+	 * 
+	 * @return
+	 */
+	public String getname() {
+		return mName;
+	}
+
+	/**
+	 * get readOnlineUrl
+	 * 
+	 * @return
+	 */
+	public String getreadOnlineUrl() {
+		return mReadOnlineUrl;
+	}
+
+	/**
+	 * get imgUrl
+	 * 
+	 * @return
+	 */
+	public String getimgUrl() {
+		return mImgUrl;
+	}
+
+	/**
+	 * get img
+	 * 
+	 * @return
+	 */
+	public Bitmap getbitmap() {
+		return mBitmap;
+	}
+
+	/**
+	 * get ranking number
+	 * 
+	 * @return
+	 */
+	public int getrankNum() {
+		return mRankNum;
+	}
+
+	/**
+	 * set author
+	 * 
+	 * @param author
+	 */
+	public void setauthor(String author) {
+		this.mAuthor = author;
+	}
+
+	/**
+	 * set click number
+	 * 
+	 * @param clickNum
+	 */
+	public void setclickNum(int clickNum) {
+		this.mClickNum = clickNum;
+	}
+
+	/**
+	 * set downloadurl
+	 * 
+	 * @param downLoadUrl
+	 */
+	public void setdownLoadUrl(String downLoadUrl) {
+		this.mDownLoadUrl = downLoadUrl;
+	}
+
+	/**
+	 * set downNum
+	 * 
+	 * @param downNum
+	 */
+	public void setdownNum(int downNum) {
+		this.mDownNum = downNum;
+	}
+
+	/**
+	 * set book name
+	 * 
+	 * @param name
+	 */
+	public void setname(String name) {
+		this.mName = name;
+	}
+
+	/**
+	 * set readonlineurl
+	 * 
+	 * @param readOnlineUrl
+	 */
+	public void setreadOnlineUrl(String readOnlineUrl) {
+		this.mReadOnlineUrl = readOnlineUrl;
+	}
+
+	/**
+	 * set img url
+	 * 
+	 * @param imgUrl
+	 */
+	public void setimgUrl(String imgUrl) {
+		this.mImgUrl = imgUrl;
+	}
+
+	/**
+	 * set img
+	 * 
+	 * @param bitmap
+	 */
+	public void setbitmap(Bitmap bitmap) {
+		this.mBitmap = bitmap;
+	}
+
+	/**
+	 * set rank number
+	 * 
+	 * @param rankNum
+	 */
+	public void setrankNum(int rankNum) {
+		this.mRankNum = rankNum;
+	}
+
+	public void setcontentUrl(String contentUrl) {
+		this.mContentUrl = contentUrl;
+	}
+}

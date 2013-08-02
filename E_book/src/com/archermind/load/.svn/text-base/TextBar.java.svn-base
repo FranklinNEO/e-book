@@ -1,0 +1,63 @@
+/**
+ * @Project:Archermindreader
+ * @ClassName:TextBar
+ * @Version 1.0
+ * @Author minmin.guo
+ * @Update shaojian.ni
+ * @Date:2012.4.19
+ * Copyright (C) 2012 The Android Open Source Project. 
+ */
+package com.archermind.load;
+
+import com.archermind.main.R;
+
+import android.content.Context;
+import android.util.AttributeSet;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
+
+public class TextBar extends RelativeLayout {
+
+	TextView mBooktext;
+	ScrollView mScrollview;
+	OnReadOnlineTextBarListener mTextbarlistener;
+
+	public TextBar(Context context) {
+		super(context);
+	}
+
+	public TextBar(Context context, AttributeSet attrs) {
+		super(context, attrs);
+		LayoutInflater inflater = (LayoutInflater) context
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		inflater.inflate(R.layout.textbar, this);
+		mBooktext = (TextView) findViewById(R.id.booktext);
+		mScrollview = (ScrollView) findViewById(R.id.scrollview);
+	}
+
+	public void setOnReadOnlineTextBarListener(
+			OnReadOnlineTextBarListener textbarlistener) {
+		this.mTextbarlistener = textbarlistener;
+		mBooktext.setOnClickListener(new BarOnClickListener());
+
+	}
+
+	public void setBarText(String text) {
+		mBooktext.setText(text);
+		mScrollview.scrollTo(0, 0);
+	}
+
+	class BarOnClickListener implements OnClickListener {
+		public void onClick(View v) {
+			switch (v.getId()) {
+			case R.id.booktext:
+				mTextbarlistener.onClickTextListener(TextBar.this);
+				break;
+			}
+		}
+	}
+
+}

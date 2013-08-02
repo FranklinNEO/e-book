@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_main"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/head"
+        layout="@layout/head" />
+
+    <com.archermind.main.MyGridView
+        android:id="@+id/bookShelf"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/head"
+        android:cacheColorHint="#00000000"
+        android:columnWidth="90.0dip"
+        android:fadingEdge="none"
+        android:horizontalSpacing="5dp"
+        android:listSelector="#00000000"
+        android:numColumns="3"
+        android:scrollbars="none"
+        android:verticalSpacing="20dp" />
+
+    <SlidingDrawer
+        android:id="@+id/sliding"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:content="@+id/allApps"
+        android:handle="@+id/imageViewIcon"
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/imageViewIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shake_report_dragger_up_normal"
+            android:cacheColorHint="#00000000" />
+
+        <GridView
+            android:id="@+id/allApps"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/file_list_bg"
+            android:columnWidth="90.0dp"
+            android:fadingEdge="none"
+            android:gravity="center"
+            android:horizontalSpacing="10dp"
+            android:numColumns="3"
+            android:scrollbars="none"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="10dp" />
+    </SlidingDrawer>
+
+</RelativeLayout>

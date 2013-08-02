@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent" >
+
+    <TextView
+        android:id="@+id/contenttext"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:text="@string/content"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size20dp" />
+
+    <ListView
+        android:id="@+id/contentlistview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/contenttext" />
+
+    <Button
+        android:id="@+id/contentbackbtn"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="@string/back"
+        android:textColor="@color/black"
+        android:textSize="@dimen/size20dp" />
+
+</RelativeLayout>

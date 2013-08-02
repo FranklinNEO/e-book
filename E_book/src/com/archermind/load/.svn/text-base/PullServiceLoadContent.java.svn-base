@@ -1,0 +1,72 @@
+/**
+ * @Project:Archermindreader
+ * @ClassName:PullServiceLoadContent
+ * @Version 1.0
+ * @Author minmin.guo
+ * @Update shaojian.ni
+ * @Date:2012.4.19
+ * Copyright (C) 2012 The Android Open Source Project. 
+ */
+package com.archermind.load;
+
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+import org.xmlpull.v1.XmlPullParser;
+import android.util.Xml;
+
+public class PullServiceLoadContent {
+
+	public static List<BookContent> getContentFromInput(InputStream is)
+			throws Exception {
+		List<BookContent> content = null;
+		BookContent chapter = null;
+		XmlPullParser parser = Xml.newPullParser();
+		parser.setInput(is, "UTF-8");
+		int event = parser.getEventType();
+		while (event != XmlPullParser.END_DOCUMENT) {
+			switch (event) {
+			case XmlPullParser.START_DOCUMENT:
+				content = new ArrayList<BookContent>();
+				break;
+			case XmlPullParser.START_TAG:
+				if ("chapter".equals(parser.getName())) {
+					int id = Integer.parseInt(parser.getAttributeValue(0));
+					chapter = new BookContent();
+					chapter.setChapterId(id);
+				} else if (chapter != null) {
+					if ("chaptername".equals(parser.getName())) {
+						String chaptername = parser.nextText();
+						chapter.setChapterName(chaptername);
+					} else if ("chapterurl".equals(parser.getName())) {
+						String chapterurl = parser.nextText();
+						chapter.setChapterUrl(chapterurl);
+					}
+				}
+				break;
+			case XmlPullParser.END_TAG:
+				if ("chapter".equals(parser.getName())) {
+					content.add(chapter);
+					chapter = null;
+				}
+				break;
+			}
+			event = parser.next();
+		}
+		return content;
+	}
+
+	public List<BookContent> getBookContent(String contenturlstr) {
+		List<BookContent> content = null;
+		InputStream inputstream = null;
+		BookHttpDownload httpload = new BookHttpDownload();
+		inputstream = httpload.getInputStream(contenturlstr);
+		try {
+			content = getContentFromInput(inputstream);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return content;
+	}
+
+}
